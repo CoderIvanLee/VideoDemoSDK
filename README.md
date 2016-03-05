@@ -48,7 +48,7 @@ Demo不涉及编码解码的内容，只是个简单的小例子
 
   [1]: https://github.com/runner365/LiveVideoCoreSDK
   [2]: https://github.com/Bilibili/ijkplayer
-  [3]: ./images/Demo.jpg "Demo.jpg"
+  [3]: /Demo.jpg "Demo.jpg"
   [4]: http://www.cnblogs.com/damiao/p/5231221.html
   [5]: http://www.cnblogs.com/damiao/p/5231358.html
   [6]: https://github.com/jgh-/VideoCore
