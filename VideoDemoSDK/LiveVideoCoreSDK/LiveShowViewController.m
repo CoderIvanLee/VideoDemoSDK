@@ -86,18 +86,22 @@
 
 -(void) RtmpInit{
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[LiveVideoCoreSDK sharedinstance] LiveInit:RtmpUrl Preview:self.view VideSize:LIVE_VIEDO_SIZE_720P BitRate:LIVE_BITRATE_500Kbps FrameRate:LIVE_FRAMERATE_20];
+        UIView *preView = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)-130, 20, 120, 150)];
+        preView.layer.cornerRadius = 8;
+        preView.layer.masksToBounds = YES;
+        [[LiveVideoCoreSDK sharedinstance] LiveInit:RtmpUrl Preview:preView VideSize:LIVE_VIEDO_SIZE_720P BitRate:LIVE_BITRATE_500Kbps FrameRate:LIVE_FRAMERATE_20];
         [LiveVideoCoreSDK sharedinstance].delete = self;
         
         [[LiveVideoCoreSDK sharedinstance] connect];
         NSLog(@"Rtmp[%@] is connecting", self.RtmpUrl);
         
+        [self ijkplayerInit];
+        
         [self.view addSubview:_ExitButton];
         [self.view addSubview:_RtmpStatusLabel];
         [self.view addSubview:_FilterButton];
         [self.view addSubview:_CameraChangeButton];
-        
-        [self ijkplayerInit];
+        [self.view addSubview:preView];
     });
 }
 
@@ -194,10 +198,7 @@
     IJKFFMoviePlayerController *player  = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.PlayUrl withOptions:options];
     _player = player;
     player.view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin;
-    
-    player.view.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-130, 20, 120, 150);
-    player.view.layer.cornerRadius = 8;
-    player.view.layer.masksToBounds = YES;
+    player.view.frame = self.view.bounds;
     player.view.contentMode = UIViewContentModeScaleToFill;
     player.scalingMode = IJKMPMovieScalingModeAspectFill;
     player.shouldAutoplay = YES;
